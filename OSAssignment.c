@@ -5,6 +5,28 @@
 #include <stdlib.h>
 #include <errno.h>
 
+typedef struct arguments
+{
+    int noOfArgs;
+    char arguments[10][100];
+}ARGUMENTS;
+
+ARGUMENTS populateArguments(char *s)
+{
+    ARGUMENTS args;
+    char *p;
+    int counter = 0;
+    p = strtok(s, " ");
+    while(p)
+    {
+        strcpy(args.arguments[counter++], p);
+        p = strtok(NULL, " ");
+    }
+    args.noOfArgs = counter + 1;
+
+    return args;
+}
+
 void myCD(char *dir)
 {   
     char s[100];
@@ -35,6 +57,8 @@ void printHelp()
 int main(int argc, char **argv)
 {
     char s[100];
+    ARGUMENTS args;
+
     /*
     if (argc < 2)
     {
@@ -65,23 +89,34 @@ int main(int argc, char **argv)
         printf("COMMAND UNKNOWN!\n");
     }
     */
-
     while (1)
     {
         printf("Please provide an option:\n");
-        fscanf(stdin, "%s", s); 
- 
-        if (strcmp(s, "help") == 0)
+        fgets(s, 100, stdin);
+        s[strlen(s) - 1] = '\0';
+        args = populateArguments(s);
+        if (strcmp(args.arguments[0], "help") == 0)
         {
             printHelp();
         }
-        else if (strcmp(s, "exit") == 0) 
+        else if (strcmp(args.arguments[0], "exit") == 0) 
         {
             exit(0);
         }
-        else if(strcmp(s, "pwd") == 0)
+        else if(strcmp(args.arguments[0], "pwd") == 0)
         {
             myPWD();
+        }
+        else if (strcmp( args.arguments[0], "cd") == 0)
+        {
+            if (args.noOfArgs < 2)
+            {
+                printf("Please provide arguments!\n");
+            }
+            else
+            {
+                myCD(args.arguments[1]);
+            }
         }
         else
         {
