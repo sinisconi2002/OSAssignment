@@ -27,4 +27,4 @@ In order to achieve this purpose, the following should be considered:
 
 **-d** to create a directory.
 
-- if **<dir>** is also provided and it refers to a valid directory, then the new entry will be created in the given directory.
+- if **\<dir\>** is also provided and it refers to a valid directory, then the new entry will be created in the given directory.
