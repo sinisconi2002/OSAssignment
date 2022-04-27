@@ -58,40 +58,9 @@ int main(int argc, char **argv)
 {
     char s[100];
     ARGUMENTS args;
-
-    /*
-    if (argc < 2)
-    {
-        printf("Please provide arguments!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (strcmp( argv[1], "pwd") == 0)
-    {
-        myPWD();
-    }
-    else if (strcmp( argv[1], "cd") == 0)
-    {
-        if (argc < 3)
-        {
-            printf("Please provide arguments!\n");
-            exit(EXIT_FAILURE);
-        }
-
-        myCD(argv[2]);
-        
-    }else if (strcmp(argv[1], "type") == 0)
-    {
-        printf("TO BE IMPLEMENTED!\n");
-    }
-    else
-    {
-        printf("COMMAND UNKNOWN!\n");
-    }
-    */
     while (1)
     {
-        printf("Please provide an option:\n");
+        printf("Please provide an option:");
         fgets(s, 100, stdin);
         s[strlen(s) - 1] = '\0';
         args = populateArguments(s);
@@ -107,7 +76,7 @@ int main(int argc, char **argv)
         {
             myPWD();
         }
-        else if (strcmp( args.arguments[0], "cd") == 0)
+        else if (strcmp(args.arguments[0], "cd") == 0)
         {
             if (args.noOfArgs < 2)
             {
@@ -117,6 +86,10 @@ int main(int argc, char **argv)
             {
                 myCD(args.arguments[1]);
             }
+        }
+        else if (strcmp(args.arguments[0], "type") == 0)
+        {
+            printf("TO BE IMPLEMENTED!\n");
         }
         else
         {
