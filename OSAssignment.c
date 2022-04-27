@@ -27,8 +27,15 @@ void myPWD()
     printf("%s\n", getcwd(s, 100));
 }
 
+void printHelp()
+{
+    printf("The manual for this script will be written ASAP!\n");
+}
+
 int main(int argc, char **argv)
 {
+    char s[100];
+    /*
     if (argc < 2)
     {
         printf("Please provide arguments!\n");
@@ -57,11 +64,30 @@ int main(int argc, char **argv)
     {
         printf("COMMAND UNKNOWN!\n");
     }
+    */
 
     while (1)
     {
-
-
+        printf("Please provide an option:\n");
+        fscanf(stdin, "%s", s); 
+ 
+        if (strcmp(s, "help") == 0)
+        {
+            printHelp();
+        }
+        else if (strcmp(s, "exit") == 0) 
+        {
+            exit(0);
+        }
+        else if(strcmp(s, "pwd") == 0)
+        {
+            myPWD();
+        }
+        else
+        {
+            printf("COMMAND UNKNOWN!\n");
+        }
+        
     }
 
     return 0;
