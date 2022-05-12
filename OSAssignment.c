@@ -81,23 +81,42 @@ void printHelp()
     printf("    -it can connect 2 commands via a pipe\n");
 }
 
-void fileType(char *entry)
+void entryType(char *entry)
 {
     struct stat status;
     if(lstat(entry, &status) == -1){
         perror("The file cannot be found!\n");
     }
-    else{
-    switch (status.st_mode & S_IFMT) {
-           case S_IFBLK:  printf("block device\n");            break;
-           case S_IFCHR:  printf("character device\n");        break;
-           case S_IFDIR:  printf("directory\n");               break;
-           case S_IFIFO:  printf("FIFO/pipe\n");               break;
-           case S_IFLNK:  printf("symnolic link\n");                 break;
-           case S_IFREG:  printf("regular file\n");            break;
-           case S_IFSOCK: printf("socket\n");                  break;
-           default:       printf("unknown?\n");                break;
-           }
+    else
+    {
+        switch (status.st_mode & S_IFMT) 
+        {
+            case S_IFBLK:  
+                printf("block device\n");
+                break;
+            
+            case S_IFCHR:  
+                printf("character device\n");        
+                break;
+            case S_IFDIR:  
+                printf("directory\n");               
+                break;
+            case S_IFIFO:  
+                printf("FIFO/pipe\n");               
+                break;
+            case S_IFLNK:  
+                printf("symnolic link\n");                 
+                break;
+            case S_IFREG:  
+                printf("regular file\n");            
+                break;
+            case S_IFSOCK: 
+                printf("socket\n");                  
+                break;
+            default:       
+                printf("unknown?\n");                
+                break;
+        }
     }      
 }
 
@@ -125,7 +144,21 @@ void createStuff(ARGUMENTS args)
     }
     else if (strcmp(args.arguments[1], "-l") == 0)
     {
-     //   symlink(strcat(strcat(),args.arguments[2], args.arguments[3]);
+        int sl;
+        if(args.noOfArgs == 4)
+        {
+            sl = symlink(args.arguments[2], args.arguments[3]);
+        }
+        else 
+        {
+            if(args.arguments[4][strlen(args.arguments[4]) -1] != '/')
+                strcat(args.arguments[4], "/");
+            sl = symlink(strcat(args.arguments[4], args.arguments[2]), args.arguments[3]);
+        }
+        if (sl == -1)
+            {
+                perror("Link could not be created!");
+            }
     }
     else if (strcmp(args.arguments[1], "-d") == 0)
     {
@@ -296,7 +329,7 @@ int main(int argc, char **argv)
             }
             else
             {
-                fileType(args.arguments[1]);
+                entryType(args.arguments[1]);
             }
         }
         else if (strcmp( args.arguments[0], "create") == 0)
