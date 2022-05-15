@@ -93,8 +93,7 @@ void entryType(char *entry)
         {
             case S_IFBLK:  
                 printf("block device\n");
-                break;
-            
+                break;           
             case S_IFCHR:  
                 printf("character device\n");        
                 break;
@@ -291,10 +290,11 @@ int main(int argc, char **argv)
 {
     char s[100];
     ARGUMENTS args;
-
+  
+  
     while (1)
     {
-        printf("Please provide an option:\n");
+        printf("Please provide an option:");
         fgets(s, 100, stdin);
         s[strlen(s) - 1] = '\0';
         args = populateArguments(s);
@@ -310,7 +310,7 @@ int main(int argc, char **argv)
         {
             myPWD();
         }
-        else if (strcmp( args.arguments[0], "cd") == 0)
+        else if (strcmp(args.arguments[0], "cd") == 0)
         {
             if (args.noOfArgs < 2)
             {
